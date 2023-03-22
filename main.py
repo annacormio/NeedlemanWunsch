@@ -1,11 +1,19 @@
 import pandas as pd
-import scoring
+
+#INPUT SEQUENCES
 #A= input("insert the first sequence")
 #B= input("insert the second sequence")
 A='ATCGTGCT'
 B='ATACGTGCA'
-#implement that the user insert the scoring schem--> if not the scoring scheme used is ours
-s=input("insert match score")
+
+#SCORING SCHEME
+#read csv file with scoring scheme
+dfScore =pd.read_csv('settings/scores.csv',sep=',', names=['align', 'score']) #returns a dataframe
+#assign the values to variables
+match= dfScore.iloc[0,1]
+mismatch= dfScore.iloc[1,1]
+gap= dfScore.iloc[2,1]
+
 
 #INITIALIZING MATRIX
 df=pd.DataFrame(columns=list(' '+A), index=list(' '+B)) #empty matrix leave a space at 1st column and row
@@ -22,13 +30,9 @@ for r in range(len(B)+1):
     df.iloc[r,0]=num
     num-=2
 
+
+
 #MATRIX FILLING
-
-#scoring scheme
-match= 1
-mismatch= -1
-gap= -2
-
 for r in range (1,len(B)+1): #iterate on each row with nt.
     for c in range(1,len(A)+1): #iterate on each column with nt.
         s_r_gap = df.iloc[r, c - 1] + gap  # right gap
@@ -43,15 +47,6 @@ for r in range (1,len(B)+1): #iterate on each row with nt.
             df.iloc[r, c] = max( s_mismatch, s_r_gap, s_u_gap)
 
 #TRACEBACK
-
-
-
-
-
-
-
-
-
 
 
 print(df)
