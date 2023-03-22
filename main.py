@@ -32,7 +32,12 @@ for r in range(len(B)+1):
 
 
 
-#MATRIX FILLING
+#MATRIX FILLING AND TRACEBACK
+
+#initializing new frame for traceback tracking
+tb= pd.DataFrame(columns=list(' '+A), index=list(' '+B))
+
+#iterations
 for r in range (1,len(B)+1): #iterate on each row with nt.
     for c in range(1,len(A)+1): #iterate on each column with nt.
         s_r_gap = df.iloc[r, c - 1] + gap  # right gap
@@ -40,14 +45,21 @@ for r in range (1,len(B)+1): #iterate on each row with nt.
 
         if df.columns[c]==df.index[r]: #match situation
             s_match = df.iloc[r-1,c-1] + match   #r-1,c-1 is the diagonal number found up left of the computed one
-            df.iloc[r, c] = max(s_match, s_r_gap, s_u_gap) #select the max score among the possible one and assign it to the cell
+            score = max(s_match, s_r_gap, s_u_gap) #select the max score among the possible one and assign it to the cell
+            df.iloc[r, c] = score
 
         else: #mismatch situation
             s_mismatch =  df.iloc[r-1,c-1] + mismatch #mismatch in diagonal
-            df.iloc[r, c] = max( s_mismatch, s_r_gap, s_u_gap)
+            score = max(s_mismatch, s_r_gap, s_u_gap) #select the max score among the possible one and assign it to the cell
+            df.iloc[r, c] = score
+        if score == s_r_gap:
+            tb.iloc[]
 
-#TRACEBACK
+
+
+
 
 
 print(df)
+
 
