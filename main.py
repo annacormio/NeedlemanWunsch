@@ -5,18 +5,11 @@ A= input("insert the first sequence")
 B= input("insert the second sequence")
 
 #SCORING SCHEME
-'''
-#read csv file with scoring scheme
-dfScore =pd.read_csv('settings/scores.csv',sep=',', names=['align', 'score']) #returns a dataframe
-#assign the values to variables
-match= dfScore.iloc[0,1]
-mismatch= dfScore.iloc[1,1]
-gap= dfScore.iloc[2,1]
-'''
+#dafault scoring scheme
 match= 1
 mismatch= -1
 gap= -2
-
+#user can perzonalize scoring scheme
 dec=input("Do u want to change the scoring scheme? (If not just press enter and I will use the default one)")
 if dec:
     match=int(input("match score = "))
