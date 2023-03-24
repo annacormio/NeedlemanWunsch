@@ -79,7 +79,7 @@ while c!=0 and r!=0:
         if A[c-1]== B[r-1]:
             mid = mid+('|')
         else:
-            mid = mid + ('*')
+            mid = mid + ('.')
         c = c - 1
         r = r - 1
 
@@ -100,7 +100,7 @@ while c!=0 and r!=0:
 
 
 #OUTPUT
-print(df) #printing the scored matrix
+print(f'score matrix \n {df}') #printing the scored matrix
 print(f'\n the score of the alignment is {score} \n') #printing score of the alignment
 #print(tb) #printing the matrix with traceback indications
 
