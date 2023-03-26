@@ -48,9 +48,13 @@ for r in range (1,len(B)+1): #iterate on each row with nt.
         if df.columns[c]==df.index[r]: #match situation
             s_match = df.iloc[r-1,c-1] + match   #r-1,c-1 is the diagonal number found up left of the computed one
             score = max(s_match, s_r_gap, s_u_gap) #select the max score among the possible one and assign it to the cell
+            if score == s_match:
+                tb.iloc[r, c] = 'diag'
         else: #mismatch situation
             s_mismatch =  df.iloc[r-1,c-1] + mismatch #mismatch in diagonal
             score = max(s_mismatch, s_r_gap, s_u_gap) #select the max score among the possible one and assign it to the cell
+            if score == s_mismatch:
+                tb.iloc[r, c] = 'diag'
         df.iloc[r, c] = score
 
         # BUILDING TRACEBACK MATRIX
@@ -58,10 +62,8 @@ for r in range (1,len(B)+1): #iterate on each row with nt.
             tb.iloc[r, c] = 'left'
         elif score == s_u_gap:
             tb.iloc[r, c] = 'up'
-        elif score == s_match:
-            tb.iloc[r, c] = 'diag'
-        elif score == s_mismatch:
-            tb.iloc[r, c] = 'diag'
+
+
 
 #SEQUENCE ALIGNMENT FROM TRACEBACK MATRIX
 
@@ -110,5 +112,7 @@ print(align) #printing the 2 aligned sequences
 
 
 
+#ATGTACATAGA
+#GTATCGTA
 
 
