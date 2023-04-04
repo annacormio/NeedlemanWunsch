@@ -24,14 +24,14 @@ tb= pd.DataFrame(columns=list(' '+A), index=list(' '+B)) #initializing new frame
 num=0
 for c in range(len(A)+1): #since we added a space to build the matrix correctly we need to add 1 to the length of the string in order to reach the end
     df.iloc[0, c] = num
-    tb.iloc[0,c]=num
+    tb.iloc[0,c]='left'
     num-=2
 
 #initialize first column to gap values
 num=0
 for r in range(len(B)+1):
     df.iloc[r,0]=num
-    tb.iloc[r, 0] = num
+    tb.iloc[r, 0] = 'up'
     num-=2
 
 
@@ -73,18 +73,20 @@ a2='' #second sequence
 c=len(A)
 r=len(B)
 
-while c!=0 and r!=0:
+while c>0 and r>0:
     #if there is a match or mismatch I align the 2 nt.
     if tb.iloc[r,c]=='diag':
-        a1 = a1 + A[c - 1]
-        a2 = a2 + B[r - 1]
-        if A[c-1]== B[r-1]:
-            mid = mid+('|')
-        else:
-            mid = mid + ('.')
+        a1 = a1 + A[c-1]
+        a2 = a2 + B[r-1]
+
+        if A[c-1]== B[r-1]: #match
+            mid = mid+('*')
+
+        elif A[c-1]!= B[r-1]:#mismatch
+            mid = mid + ('|')
+
         c = c - 1
         r = r - 1
-
 
     #gaps
     elif tb.iloc[r,c]=='up':
@@ -97,14 +99,15 @@ while c!=0 and r!=0:
         a1=a1+A[c-1]
         mid = mid + (' ')
         a2 = a2 + '-' #gap in the second sequence
-        c =c- 1
+        c =c - 1
+
 
 
 
 #OUTPUT
 print(f'score matrix \n {df}') #printing the scored matrix
 print(f'\n the score of the alignment is {score} \n') #printing score of the alignment
-#print(tb) #printing the matrix with traceback indications
+print(tb) #printing the matrix with traceback indications
 
 #since I traceBACK the first alignment i get is of the sequences displayed backward
 align=f'{a1[::-1]}\n{mid[::-1]}\n{a2[::-1]}' #using [::-1] i am reversing the strings to have the right alignment, not backward
@@ -112,7 +115,5 @@ print(align) #printing the 2 aligned sequences
 
 
 
-#ATGTACATAGA
-#GTATCGTA
-
-
+#AGTACATAGA
+#GAGTCGTA
