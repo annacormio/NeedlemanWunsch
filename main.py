@@ -73,7 +73,7 @@ a2='' #second sequence
 c=len(A)
 r=len(B)
 
-while c>0 and r>0:
+while c>0 or r>0:
     #if there is a match or mismatch I align the 2 nt.
     if tb.iloc[r,c]=='diag':
         a1 = a1 + A[c-1]
